@@ -9,6 +9,21 @@
 <!-- Similar Products -->
 <template>
     <lightning-card title="Similar Products" icon-name="standard:link">
+        <div>
+            <template lwc:if={similarProducts.data}>
+                <template for:each={similarProducts.data} for:item="product">
+                    <c-product-list-item
+                        key={product.Id}
+                        product={product}
+                    >
+                    </c-product-list-item>
+
+                </template>
+                <template lwc:if={hasNoSimilarProducts}>
+
+                </template>
+            </template>
+        </div>
 
     </lightning-card>
 </template>

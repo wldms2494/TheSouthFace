@@ -39,5 +39,9 @@ export default class SimilarProducts extends LightningElement {
     })
     similarProducts;
 
+    get hasNoSimilarProducts(){
+        return this.similarProducts.data.length ===0;
+    }
+
 
 }
