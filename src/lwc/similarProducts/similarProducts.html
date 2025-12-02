@@ -17,10 +17,9 @@
                         product={product}
                     >
                     </c-product-list-item>
-
                 </template>
                 <template lwc:if={hasNoSimilarProducts}>
-
+                    <c-placeholder  message="No similar products" ></c-placeholder>
                 </template>
             </template>
         </div>
