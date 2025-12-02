@@ -8,12 +8,24 @@
 -->
 <!-- Product List Item -->
 <template>
-    <lightning-layout>
+    <lightning-layout vertical-align="center">
         <lightning-layout-item>
             <img
-                src={product.Picture_URL__c}/
-                 alt="Product picture"
+                src={product.Picture_URL__c}
+                class="product"
+                alt="Product picture"
             >
+        </lightning-layout-item>
+        <lightning-layout-item flexibility="grow"  class="slds-var-p-horizontal_small" >
+            <p>Name: {product.Name}</p>
+            <p>Color: {product.Color__c}</p>
+        </lightning-layout-item>
+        <lightning-layout-item >
+            <lightning-button
+                label="View Details"
+                variant="success"
+                onclick={handleViewDetailsClick}
+            ></lightning-button>
         </lightning-layout-item>
     </lightning-layout>
 </template>
