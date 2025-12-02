@@ -12,12 +12,14 @@ public with sharing class ProductController
 {
 
     // 비슷한 상품 가져오기
-    @AuraEnabled
+    @AuraEnabled(Cacheable=true scope='global')
     public static Product__c[] getSimilarProducts(Id productId, Id familyId){
-        return [
+        List<Product__c> similarProdcuts = [
                 SELECT Id, Gender__c, Picture_URL__c, fm_imageURL__c, Color__c
                 FROM Product__c
-                WHERE Product_Family__c = :familyId AND Id != :productId
-        ];
+                WHERE Product_Family__c = :familyId AND Id != :productId];
+
+        System.debug('similarProducts : ' + similarProdcuts);
+        return similarProdcuts;
     }
 }
