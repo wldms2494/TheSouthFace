@@ -1,0 +1,13 @@
+/**
+ * Project Name : The South Face
+ * File Name : productTileList
+ * Description : 필수작성
+ * Copyright : Copyright © JieunSong. All Rights Reserved. 2025
+ * Author : 82107
+ * Created Date : 2025-12-03 오후 3:51
+ */
+import {LightningElement} from 'lwc';
+
+export default class ProductTileList extends LightningElement {
+
+}
