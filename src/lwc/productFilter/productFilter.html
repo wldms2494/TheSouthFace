@@ -25,8 +25,11 @@
                         <lightning-input
                             key={category.value}
                             label={category.label}
+                            data-filter="categories"
                             data-value={category.value}
                             type="checkbox"
+                            checked
+                            onchange={handleCheckboxChange}
                         ></lightning-input>
 
                     </template>
@@ -52,6 +55,8 @@
                                 label={gender.label}
                                 data-value={gender.value}
                                 type="checkbox"
+                                checked
+                                onchange={handleCheckboxChange}
                         ></lightning-input>
 
                     </template>
@@ -73,6 +78,8 @@
                                 label={color.label}
                                 data-value={color.value}
                                 type="checkbox"
+                                checked
+                                onchange={handleCheckboxChange}
                         ></lightning-input>
 
                     </template>
