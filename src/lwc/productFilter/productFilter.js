@@ -22,6 +22,11 @@ export default class ProductFilter extends LightningElement {
         searchKey:''
     };
 
+    handleSearchKeyChange(event){
+        this.filters.searchKey = event.target.value;
+    }
+
+
     // Picklist Value 가져오기
     @wire(getPicklistValues,{
         recordTypeId:'012000000000000AAA', //default record type이 없다면 master recordType 값 넣어주기 '012000000000000AAA'
