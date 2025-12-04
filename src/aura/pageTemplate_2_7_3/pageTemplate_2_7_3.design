@@ -1,0 +1,15 @@
+<!--
+ - Project Name : The South Face
+ - File Name : pageTemplate_2_7_3.design
+ - Description : 필수작성
+ - Copyright : Copyright © JieunSong. All Rights Reserved. 2025
+ - Author : 82107
+ - Created Date : 2025-12-04 오전 9:47
+-->
+<design:component label="Three columns layout: 2 7 3">
+    <flexipage:template>
+        <flexipage:region name="left" defaultWidth="SMALL" />
+        <flexipage:region name="center" defaultWidth="LARGE" />
+        <flexipage:region name="right" defaultWidth="SMALL" />
+    </flexipage:template>
+</design:component>
