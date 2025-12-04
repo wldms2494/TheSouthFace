@@ -1,0 +1,10 @@
+.content {
+    /* 가로로 정렬하되 컨테이너 공간보다 커져 넘칠경우 아이템을 다음줄로 넘김*/
+    display: flex;
+    flex-wrap: wrap;
+}
+
+c-product-tile {
+    min-width: 200px;
+    flex: 1;
+}

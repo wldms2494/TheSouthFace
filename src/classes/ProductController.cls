@@ -25,6 +25,7 @@ public with sharing class ProductController
 
     @AuraEnabled(Cacheable=true Scope='global')
     public static PageResult getProducts(Filters filters, Integer pageNumber){
+        System.debug('filters: '+filters+' , pageNumber: ' + pageNumber);
         String key, whereClause = '';
         String[] categories, genders, colors, criteria = new List<String>{};
         if(filters !=null){
@@ -37,23 +38,24 @@ public with sharing class ProductController
             // Category
             if(filters.categories!=null){
                 categories = filters.categories;
+                System.debug('categories: '+categories);
                 criteria.add('Product_Family__r.Category__c IN :categories');
             }
 
             // gender
             if(filters.genders!=null){
                 genders = filters.genders;
-                criteria.add('genders__c IN :genders');
+                criteria.add('gender__c IN :genders');
             }
 
             // color
             if(filters.colors!=null){
                 colors = filters.colors;
-                criteria.add('colors__c IN :colors');
+                criteria.add('color__c IN :colors');
             }
 
             if (criteria.size() > 0){
-                whereClause  = 'WHERE' + String.join(criteria, ' AND ');
+                whereClause  = 'WHERE ' + String.join(criteria, ' AND ');
             }
 
         }
@@ -62,15 +64,19 @@ public with sharing class ProductController
         PageResult result = new PageResult();
         result.pageSize = pageSize;
         result.pageNumber = pageNumber;
+
+        System.debug('whereClause: '+whereClause);
         result.totalItemCount = Database.countQuery(
-          'SELECT count() FROM Product__c' + whereClause
+          'SELECT count() FROM Product__c ' + whereClause
         );
         result.records = Database.query(
-                'SELECT Id, Name, Product_Family__c, Product_Family__r.Category__c, Color__c, Gender__c  FROM Product__c' +
+                'SELECT Id, Name,Picture_URL__c, Product_Family__c, Product_Family__r.Category__c, Color__c, Gender__c  FROM Product__c ' +
                         whereClause +
                         ' WITH USER_MODE ' +
                         ' ORDER BY Name LIMIT :pageSize OFFSET :offset'
         );
+
+        System.debug('result: '+result);
         return result;
     }
 

@@ -8,4 +8,27 @@
 -->
 <!-- Product Tile List -->
 <template>
+    <article>
+<!--        <template>-->
+<!--            <lightning-input-->
+<!--                label="Search Key"-->
+<!--                type="text"-->
+<!--            ></lightning-input>-->
+<!--        </template>-->
+        <template lwc:if={products.data}>
+            <div class="content">
+                <template
+                    for:each={products.data.records}
+                    for:item="product"
+                >
+                    <c-product-tile
+                        key={product.Id}
+                        product={product}
+                    ></c-product-tile>
+
+                </template>
+            </div>
+        </template>
+
+    </article>
 </template>

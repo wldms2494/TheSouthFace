@@ -9,18 +9,24 @@
 import {LightningElement, wire} from 'lwc';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 // Product Schema
-
 //import CATEGORY_FIELD from '@salesforce/schema/Product__c.Product_Family__r.Category__c';
 import  CATEGORY_FIELD from '@salesforce/schema/Product_Family__c.Category__c';
 import PRODUCTFAMILY_NAME_FIELD from '@salesforce/schema/Product__c.Product_Family__r.Name';
 import COLOR_FIELD from '@salesforce/schema/Product__c.Color__c';
 import GENDER_FIELD from '@salesforce/schema/Product__c.Gender__c';
 
+// Lightning Message Service and Message Channel
+import PRODUCTS_FILTERED_MESSAGE from '@salesforce/messageChannel/ProductsFiltered__c';
+import {publish, MessageContext} from "lightning/messageService";
+
 export default class ProductFilter extends LightningElement {
 
     filters ={
         searchKey:''
     };
+
+    @wire(MessageContext)
+    messageContext;
 
     handleSearchKeyChange(event){
         this.filters.searchKey = event.target.value;
@@ -76,5 +82,9 @@ export default class ProductFilter extends LightningElement {
             );
         }
         console.log('this.filters :' +JSON.stringify(this.filters));
+
+        publish(this.messageContext, PRODUCTS_FILTERED_MESSAGE, {
+           filters: this.filters
+        });
     }
 }
