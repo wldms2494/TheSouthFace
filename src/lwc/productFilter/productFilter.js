@@ -19,6 +19,8 @@ import GENDER_FIELD from '@salesforce/schema/Product__c.Gender__c';
 import PRODUCTS_FILTERED_MESSAGE from '@salesforce/messageChannel/ProductsFiltered__c';
 import {publish, MessageContext} from "lightning/messageService";
 
+// The delay used when debouncing event handlers before firing the event
+const DELAY = 350;
 export default class ProductFilter extends LightningElement {
 
     filters ={
@@ -30,6 +32,7 @@ export default class ProductFilter extends LightningElement {
 
     handleSearchKeyChange(event){
         this.filters.searchKey = event.target.value;
+        this.delayedFireFilterChangeEvent();
     }
 
 
@@ -86,5 +89,21 @@ export default class ProductFilter extends LightningElement {
         publish(this.messageContext, PRODUCTS_FILTERED_MESSAGE, {
            filters: this.filters
         });
+    }
+
+
+    delayedFireFilterChangeEvent(){
+        // 디바운싱 구현:  글자가 타이핑 될때마다 호출되면 과부화가 올 수 있기 때문에 이벤트 발생시마다 @wire메소드를 호출하는것을 방지하기 위함
+        window.clearTimeout(this.delayTimeout);
+        this.delayTimeout = setTimeout(()=>{
+            publish(this.messageContext, PRODUCTS_FILTERED_MESSAGE, {
+               filters: this.filters
+            });
+        }, DELAY);
+        // 사용자가 'B' 타이핑을 시작하면 350ms 후 메세지를 보내도록 타이머가 설정됨.
+        // 사용자가 100ms 이후 다른 글자 'I' 를 타이핑 하면 'B'에 셋팅이 되었던 clearTimeout이 이전 타이머를 취소함.
+        // 그리고 'I'를 기준으로 새로운 350ms 타이머를 설정함.
+        // 이를 통해 마지막 타이핑 이후 350ms 가 지날때 까지 메세지 전송이 지연(Debounce)됨.
+
     }
 }
