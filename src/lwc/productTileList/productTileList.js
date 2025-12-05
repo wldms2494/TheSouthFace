@@ -47,5 +47,13 @@ export default class ProductTileList extends LightningElement {
 
     }
 
+    handlePreviousPage(){
+        this.pageNumber = this.pageNumber - 1;
+    }
+
+    handleNextPage(){
+        this.pageNumber = this.pageNumber + 1;
+    }
+
 
 }

@@ -8,7 +8,7 @@
 -->
 <!-- Product Tile List -->
 <template>
-    <article>
+    <article class="slds-card" >
 <!--        <template>-->
 <!--            <lightning-input-->
 <!--                label="Search Key"-->
@@ -27,7 +27,15 @@
                     ></c-product-tile>
 
                 </template>
+
             </div>
+            <c-paginator
+                total-item-count={products.data.totalItemCount}
+                page-size={products.data.pageSize}
+                onprevious={handlePreviousPage}
+                onnext={handleNextPage}
+                page-number={pageNumber}
+            ></c-paginator>
         </template>
 
     </article>
